@@ -1,0 +1,9 @@
+---
+interfaces:
+{% for interface in ip_interface_facts %}
+{% for interface_key,interface_value in interface.items() %}
+- name: {{interface_key}}
+  ipv4_addr: {{interface_value.data.ip}}
+  state: {{interface_value.data.admin_state}}
+{% endfor %}
+{% endfor %}

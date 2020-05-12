@@ -1,0 +1,15 @@
+---
+interfaces:
+- name: GigabitEthernet2
+  ipv4_addr: 192.168.4.2/24
+  enabled: True
+  state: up
+static_routes:
+- prefix: 192.168.3.0
+  mask: 255.255.255.0
+  next_hop: 192.168.4.3
+ospf_networks:
+  parent: router ospf 1
+  commands:
+  - network 192.168.3.0 0.0.0.255 area 0
+  - network 192.168.4.0 0.0.0.255 area 0

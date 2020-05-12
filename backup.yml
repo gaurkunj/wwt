@@ -1,0 +1,15 @@
+---
+- name: backup router configurations
+  hosts: routers
+  connection: network_cli
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Backup configuration
+      ios_config:
+        backup: yes
+      register: config_output
+    - name: Rename backup
+      copy:
+        src: "{{config_output.backup_path}}"
+        dest: "./backup/{{inventory_hostname}}.config"

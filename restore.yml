@@ -1,0 +1,17 @@
+---
+- name: restore router configurations
+  hosts: "{{ target }}"
+  connection: network_cli
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Upload Restore Config
+      net_put:
+        src: "./backup/{{ target }}.config"
+        dest: flash:/restore-config
+        protocol: scp
+
+    - name: Restore Config
+      ios_command:
+        commands:
+          - config replace flash:restore-config force

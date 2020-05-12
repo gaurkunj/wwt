@@ -1,0 +1,15 @@
+---
+interfaces:
+- name: GigabitEthernet2
+  ipv4_addr: 192.168.3.3/24
+  enabled: True
+  state: up
+- name: GigabitEthernet3
+  ipv4_addr: 192.168.4.3/24
+  enabled: True
+  state: up
+ospf_networks:
+  parent: router ospf 1
+  commands:
+  - network 192.168.3.0 0.0.0.255 area 0
+  - network 192.168.4.0 0.0.0.255 area 0

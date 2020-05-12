@@ -1,0 +1,11 @@
+---
+interfaces:
+- name: GigabitEthernet1
+  ipv4_addr: 192.168.2.107
+  state: up
+- name: GigabitEthernet2
+  ipv4_addr: 192.168.3.3
+  state: up
+- name: GigabitEthernet3
+  ipv4_addr: 192.168.4.3
+  state: up

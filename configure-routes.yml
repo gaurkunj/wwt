@@ -1,0 +1,26 @@
+---
+- name: configure router interfaces and routes
+  hosts: cisco-csr
+  connection: network_cli
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: Configure Interface
+    ios_l3_interface:
+      name: "{{ item.name }}"
+      ipv4: "{{ item.ipv4_addr }}"
+    with_items: "{{ interfaces | default([]) }}"
+
+  - name: Enable Interface
+    ios_interface:
+      name: "{{ item.name }}"
+      enabled: "{{ item.enabled }}"
+      state: "{{ item.state }}"
+    with_items: "{{ interfaces | default([]) }}"
+
+  - name: Configure Static Route
+    ios_static_route:
+      prefix: "{{ item.prefix }}"
+      mask: "{{ item.mask }}"
+      next_hop: "{{ item.next_hop }}"
+    with_items: "{{ static_routes | default([]) }}"
